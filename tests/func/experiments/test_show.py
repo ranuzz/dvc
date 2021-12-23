@@ -598,6 +598,7 @@ def test_show_only_changed(tmp_dir, dvc, scm, capsys):
     assert "bar" not in cap.out
 
 
+@pytest.mark.pcp
 def test_show_parallel_coordinates(tmp_dir, dvc, scm, mocker):
     from dvc.command.experiments import show
 

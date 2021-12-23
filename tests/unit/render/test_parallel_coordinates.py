@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from dvc.compare import TabularData
 from dvc.render.html import write
 from dvc.render.plotly import ParallelCoordinatesRenderer
@@ -16,6 +18,7 @@ def expected_format(result):
     return True
 
 
+@pytest.mark.pcp
 def test_scalar_columns():
     td = TabularData(["col-1", "col-2", "col-3"])
     td.extend([["0.1", "1", ""], ["2", "0.2", "0"]])
@@ -39,6 +42,7 @@ def test_scalar_columns():
     }
 
 
+@pytest.mark.pcp
 def test_categorical_columns():
     td = TabularData(["col-1", "col-2"])
     td.extend([["foo", ""], ["bar", "foobar"], ["foo", ""]])
@@ -62,6 +66,7 @@ def test_categorical_columns():
     }
 
 
+@pytest.mark.pcp
 def test_mixed_columns():
     td = TabularData(["categorical", "scalar"])
     td.extend([["foo", "0.1"], ["bar", "2"]])
@@ -83,6 +88,7 @@ def test_mixed_columns():
     }
 
 
+@pytest.mark.pcp
 def test_color_by_scalar():
     td = TabularData(["categorical", "scalar"])
     td.extend([["foo", "0.1"], ["bar", "2"]])
@@ -98,6 +104,7 @@ def test_color_by_scalar():
     }
 
 
+@pytest.mark.pcp
 def test_color_by_categorical():
     td = TabularData(["categorical", "scalar"])
     td.extend([["foo", "0.1"], ["bar", "2"]])
@@ -118,6 +125,7 @@ def test_color_by_categorical():
     }
 
 
+@pytest.mark.pcp
 def test_write_parallel_coordinates(tmp_dir):
     td = TabularData(["categorical", "scalar"])
     td.extend([["foo", "0.1"], ["bar", "2"]])
@@ -135,6 +143,7 @@ def test_write_parallel_coordinates(tmp_dir):
     assert div in html_text
 
 
+@pytest.mark.pcp
 def test_fill_value():
     td = TabularData(["categorical", "scalar"])
     td.extend([["foo", "-"], ["-", "2"]])

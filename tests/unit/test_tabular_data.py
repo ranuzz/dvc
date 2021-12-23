@@ -266,6 +266,7 @@ def test_drop_duplicates_invalid_axis():
         td.drop_duplicates("foo")
 
 
+@pytest.mark.pcp
 def test_to_parallel_coordinates(tmp_dir, mocker):
     (tmp_dir / "foo").mkdir()
     td = TabularData(["categorical", "scalar"])

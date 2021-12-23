@@ -761,6 +761,7 @@ def test_experiments_init_type_invalid_choice():
         parse_args(["exp", "init", "--type=invalid", "cmd"])
 
 
+@pytest.mark.pcp
 def test_show_experiments_pcp(tmp_dir, mocker):
     all_experiments = {
         "workspace": {
