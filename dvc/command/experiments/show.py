@@ -484,7 +484,7 @@ def show_experiments(
             for x in td.column("Experiment")
         ]
         out = kwargs.get("out") or "dvc_plots"
-        pcp_args["output_path"] = (Path.cwd() / out).resolve()
+        pcp_args["output_path"] = Path(out).resolve()
         pcp_args["color_by"] = kwargs.get("sort_by") or "Experiment"
 
     td.render(
