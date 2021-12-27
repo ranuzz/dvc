@@ -275,4 +275,7 @@ SCHEMA = {
         "plots": str,
         "live": str,
     },
+    "ui": {
+        Optional("light", default=False): Bool,
+    },
 }
