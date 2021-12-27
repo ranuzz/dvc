@@ -671,3 +671,24 @@ def test_show_parallel_coordinates(tmp_dir, dvc, scm, mocker):
     assert main(["exp", "show", "--html"]) == 0
     html_text = (tmp_dir / "dvc_plots" / "index.html").read_text()
     assert '{"label": "foobar", "values": [2.0, null, null]}' in html_text
+
+
+def test_show_light(tmp_dir, scm, dvc, exp_stage, mocker):
+    from dvc.command.experiments import show
+    from dvc.utils.table import Table
+
+    show_experiments = mocker.spy(show, "show_experiments")
+    add_row = mocker.spy(Table, "add_row")
+
+    assert main(["exp", "show"]) == 0
+    kwargs = show_experiments.call_args[1]
+    assert not kwargs["light"]
+    assert add_row.call_args[1]["style"] == "bold on grey23"
+
+    with dvc.config.edit() as conf:
+        conf["ui"]["light"] = True
+
+    assert main(["exp", "show"]) == 0
+    kwargs = show_experiments.call_args[1]
+    assert kwargs["light"]
+    assert add_row.call_args[1]["style"] == "bold on grey85"
